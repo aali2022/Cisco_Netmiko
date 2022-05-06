@@ -2,16 +2,16 @@
 
 ## Create Network_Information_Gathering
 ---------------------------------------
-this script allow you to get the most infromation you need of your enviroment "Cisco IOS" and export those infromation and put it as CSV file 
-this script allow you to extract (show version,show cdp neighbor, show ip route and put the important information on CSV file
+this script allows you to get the most information you need of your environment "Cisco IOS" export those information and put it as a CSV file 
+this script allows you to extract (show version, show CDP neighbor, show IP route and put the important information on a CSV file
 
-Requirment 
+Requirement 
 1- create two folders 
-   a- csv
+   a- CSV
    b-output
 
-2- go inside the CSV Folder and uploade cisco_devices.csv file 
-3- full all the required information like ip and hostname on cisco_devices.csv and run the script
+2- go inside the CSV Folder and upload cisco_devices.csv file 
+3- full all the required information like IP and hostname on cisco_devices.csv and run the script
 
 
 
