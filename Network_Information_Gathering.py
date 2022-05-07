@@ -100,7 +100,5 @@ for row in range(len(Asset_List)) :
       call_cisco_ios_func('show cdp neighbors detail')
       call_cisco_ios_func('show version')
       call_cisco_ios_func('show ip interface | section exclude administratively')
-      call_cisco_ios_func('show interfaces description | exclude down')
-      call_cisco_ios_func('show interfaces')
   else:
       print ('Sorry the Device '+(Host_Name)+' '+IPAddress+'............................................[NOT SUPPORTED]')
