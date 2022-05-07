@@ -8,7 +8,7 @@ from datetime import datetime
 #file_path = 'output/logs.log'
 #sys.stderr = open(file_path, "w+")
 
-def netmiko_func(ip, uname, pname):
+def cisco_ios_func(ip, uname, pname):
     cisco_ios = {
         'device_type': 'cisco_ios',
         'ip': ip,
@@ -81,19 +81,26 @@ def netmiko_func(ip, uname, pname):
         time.sleep(1)
     return inner_function
 
-Cisco_list= pd.read_csv("csv/cisco_devices.csv")
+Asset_List= pd.read_csv("csv/asset_list.csv")
 USERNAME = input('Enter username:')
 PASSWORD = getpass('Password:')
 
-for row in range(len(Cisco_list)) :
-  Host_Name = Cisco_list.loc[row, "hostname"]
-  IPAddress = Cisco_list.loc[row, "ip_address"]
-  try:
-      call_netmiko_func = netmiko_func(IPAddress, USERNAME, PASSWORD)
-  except Exception as e:
-      print ('Connectivity with '+(Host_Name)+' '+IPAddress+'..............................................[FAIL]')
-      print (e)
-      continue
-  call_netmiko_func ('show ip route vrf *')
-  call_netmiko_func('show cdp neighbors detail')
-  call_netmiko_func('show version')
+for row in range(len(Asset_List)) :
+  Host_Name = Asset_List.loc[row, "hostname"]
+  IPAddress = Asset_List.loc[row, "ip_address"]
+  Device_type = Asset_List.loc[row, "device_type"]
+  if (Device_type == 'cisco_ios'):
+      try:
+          call_cisco_ios_func = cisco_ios_func(IPAddress, USERNAME, PASSWORD)
+      except Exception as e:
+          print ('Connectivity with '+(Host_Name)+' '+IPAddress+'..............................................[FAIL]')
+          print (e)
+          continue
+      call_cisco_ios_func('show ip route vrf *')
+      call_cisco_ios_func('show cdp neighbors detail')
+      call_cisco_ios_func('show version')
+      call_cisco_ios_func('show ip interface | section exclude administratively')
+      call_cisco_ios_func('show interfaces description | exclude down')
+      call_cisco_ios_func('show interfaces')
+  else:
+      print ('Sorry the Device '+(Host_Name)+' '+IPAddress+'............................................[NOT SUPPORTED]')
